@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class ArtificialNeuron {
 	
-	public double weights[];//wagi
+	public double weight[];//wagi
 	public double x[][] = {{2,-3}, {4,6}, {0,-1}, {5,-8}, {3,9}, {-1,8}, {4,-3}, {6, -7}, {0, 0}, {8, -2}};//tablica danych wejscia x do uczenia
 	public int w = 10; //wiersze tablicy
 	public int k = 2; //kolumny tablicy
@@ -12,31 +12,31 @@ public class ArtificialNeuron {
 	public double test_data[][];
 	public int number_of_testing_data = 10;
 	
-    private void random_weights() {
+    private void random_weight() {
     	int n = 2;
-    	weights=new double[n];
+    	weight=new double[n];
     	Random random = new Random();
     	for(int i=0; i<n; i++){
-        weights[i] = random.nextDouble() * 2 - 1;
+        weight[i] = random.nextDouble() * 2 - 1;
     	}
-    	System.out.println("Weights: ");
+    	System.out.println("Weight: ");
     	for (int i = 0; i < n; i++) {
-        System.out.println(weights[i]);
+        System.out.println(weight[i]);
 
         }
     }
 	
     public void learn(double learning_rate){ 
     	int iteration = 0;
-    	random_weights();
+    	random_weight();
     	do {
     		iteration++;
     		System.out.println("*****" + iteration + "*****");
 			for (int i = 0; i < w; i++){
     			out_data = check(x[i][0],x[i][1]);
     			error = target_result[i]-out_data;
-    			weights[0] += learning_rate * error * x[i][0]; //obliczanie wag
-    			weights[1] += learning_rate * error * x[i][1];
+    			weight[0] += learning_rate * error * x[i][0]; //obliczanie wag
+    			weight[1] += learning_rate * error * x[i][1];
 
     			System.out.println(x[i][0] + " " + x[i][1] + " " + target_result[i] + "    Result: "+ out_data );
     		}
@@ -46,7 +46,7 @@ public class ArtificialNeuron {
    private double check(double x1,double x2){
 	   
 	   double sum = 0;
-	   sum = x1 * weights[0] + x2 * weights[1];
+	   sum = x1 * weight[0] + x2 * weight[1];
 
         if(sum>0) { //czy suma jest dodatnia
         	sum = 1;
