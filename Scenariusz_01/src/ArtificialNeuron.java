@@ -3,24 +3,27 @@ import java.util.Random;
 public class ArtificialNeuron {
 	
 	public double weight[];//wagi
-	public double x[][] = {{2,-3}, {4,6}, {0,-1}, {5,-8}, {3,9}, {-1,8}, {4,-3}, {6, -7}, {0, 0}, {8, -2}};//tablica danych wejscia x do uczenia
+	public static final double x[][] = {{2,-3}, {4,6}, {0,-1}, {5,-8}, {3,9}, {-1,8}, {4,-3}, {6, -7}, {0, 0}, {8, -2}};//tablica danych wejscia x do uczenia
 	public int w = 10; //wiersze tablicy
 	public int k = 2; //kolumny tablicy
-	public double target_result[] = {0,1,0,0,1,1,1,0,0,1}; //1 lub 0
-	public double out_data=0; //dane wyjsciowe
+	public static final double target_result[] = {0,1,0,0,1,1,1,0,0,1}; //1 jeżeli suma>0 lub 0 jeżeli suma<0
+	public double out_data = 0; //dane wyjsciowe
 	public double error;
 	public double test_data[][];
-	public int number_of_testing_data = 10;
+	public int number_of_testing_data = 10; //ilość danych do testu
 	
+    public ArtificialNeuron() {
+	weight = new double[k];
+	test_data = new double[number_of_testing_data][k];	
+    }
+		
     private void random_weight() {
-    	int n = 2;
-    	weight=new double[n];
     	Random random = new Random();
-    	for(int i=0; i<n; i++){
-        weight[i] = random.nextDouble() * 2 - 1;
+    	for(int i = 0; i < k; i++){
+        weight[i] = random.nextDouble() * 2 - 1; //losowe wagi w przedziale od -1 do 1
     	}
     	System.out.println("Weight: ");
-    	for (int i = 0; i < n; i++) {
+    	for (int i = 0; i < k; i++) {
         System.out.println(weight[i]);
 
         }
@@ -40,7 +43,7 @@ public class ArtificialNeuron {
 
     			System.out.println(x[i][0] + " " + x[i][1] + " " + target_result[i] + "    Result: "+ out_data );
     		}
-    	} while(error>0.01);
+    	} while(error > 0.01);
    }
 
    private double check(double x1,double x2){
@@ -58,11 +61,10 @@ public class ArtificialNeuron {
     }
    
    public void test(){
-	   Random rand = new Random();
-	   test_data = new double[number_of_testing_data][k];
+       Random rand = new Random();
        for(int i=0; i<number_of_testing_data; i++){
-           test_data[i][0]=rand.nextInt(20)-10;
-           test_data[i][1]=rand.nextInt(20)-10;
+           test_data[i][0]=rand.nextInt(21)-10; //losowe liczby do testu w przedziale od -10 do 10
+           test_data[i][1]=rand.nextInt(21)-10;
        }
        System.out.println("Checking if the sum of this two numbers is a positive number: ");
        System.out.println("Testing...");
