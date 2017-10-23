@@ -43,7 +43,7 @@ public class ArtificialNeuron {
 
     			System.out.println(x[i][0] + " " + x[i][1] + " " + target_result[i] + "    Result: "+ out_data );
     		}
-    	} while(error > 0.01);
+    	} while(error*error > 0.01);
    }
 
    private double check(double x1,double x2){
